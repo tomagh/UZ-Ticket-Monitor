@@ -106,7 +106,7 @@ while success == 0:
 
 			response = requests.post(searchURL, encodedData, headers = headers, timeout=5)
 			if response.json()["error"]:
-				print "" + time.strftime("%H:%M:%S", time.gmtime()) + "> " + direction + response.json()["value"].encode('utf-8') + "; response code = " + str(response.status_code);
+				print "" + time.strftime("%H:%M:%S", time.localtime()) + "> " + direction + response.json()["value"].encode('utf-8') + "; response code = " + str(response.status_code);
 			else:
 				print "Ticket found! Open prowser and exit!"
 				success = 1
