@@ -19,7 +19,7 @@ successURLToOpen = "http://booking.uz.gov.ua" # URL that will be opened in brows
 requestDelayTime = 30 #seconds between requests
 direction = "" + station_from + " -> " + station_till + " (" + departure_date + "): "
 
-import webbrowser
+import webbrowser, datetime
 import urllib, urllib2, requests
 import time, sys, os
 
@@ -104,9 +104,9 @@ while success == 0:
 					   "Cookie": "__utma=31515437.824785525.1400615457.1475030279.1475033734.49; __utmb=31515437.1.10.1475033734; __utmc=31515437; __utmt=1; __utmz=31515437.1429630767.11.4.utmcsr=uz.gov.ua|utmccn=(referral)|utmcmd=referral|utmcct=/passengers/timetables/; HTTPSERVERID=server2; _uz_cart_personal_email=test%40gmail.com; _gv_lang=uk; _gv_sessid=" + gv_sessid,
 					   "Connection": "keep-alive"}
 
-			response = requests.post(searchURL, encodedData, headers = headers)			
+			response = requests.post(searchURL, encodedData, headers = headers, timeout=5)
 			if response.json()["error"]:
-				print direction + response.json()["value"].encode('utf-8')
+				print "" + time.strftime("%H:%M:%S", time.gmtime()) + "> " + direction + response.json()["value"].encode('utf-8') + "; response code = " + str(response.status_code);
 			else:
 				print "Ticket found! Open prowser and exit!"
 				success = 1
